@@ -1,0 +1,46 @@
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+
+    <h:form id="createForm">
+        <p:growl id="growlCreateTool" showDetail="true"/>
+
+        <p:dialog  header="#{msg['create_leave']}" widgetVar="leave_creator_dialog1" modal="true"
+                  showEffect="fade" hideEffect="fade" resizable="true">
+
+                <p:panel id="compteLeaveDialog"  style="text-align:center;">
+                    <h:panelGroup>
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel for="place" value="#{msg['place']}"/>
+                        <p:inputText id="place" value="#{leaveUserViewScopedController.newDemande.lieu}"/>
+
+
+                        <p:outputLabel for="request_time" value="#{msg['request_time']} :"/>
+                        <p:calendar id="request_time"
+                                    value="#{leaveUserViewScopedController.newDemande.keyDemande.dateDemande}"
+                                    showOn="button"/>
+                    </h:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <h:panelGroup style="display:block; text-align:right">
+                            <p:commandButton
+                                    icon="fa fa-check"
+                                    update="growlCreateTool :leaveListForm"
+                                    actionListener="#{leaveUserViewScopedController.create}"
+                            />
+                        </h:panelGroup>
+
+                    </f:facet>
+
+                </p:panel>
+
+        </p:dialog>
+
+
+    </h:form>
+</ui:composition>

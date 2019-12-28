@@ -1,0 +1,69 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+
+
+    <h:form id="updateDemandeForm">
+
+        <p:growl id="growlUpdateTool" showDetail="true"/>
+
+        <p:dialog id="demandeUpdatePanel" header="#{msg['update_medical_compte']}"
+                  widgetVar="demande_updater_dialog"
+                  modal="true"
+                  showEffect="fade" hideEffect="fade" resizable="false">
+            <p:panel style="text-align:center;"
+                     rendered="#{not empty leaveUserViewScopedController.selectedDemande}">
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+
+
+                            <p:outputLabel for="person" value="#{msg['person']}"/>
+                            <p:outputLabel id="person" value="#{leaveUserViewScopedController.selectedDemande.personne.nom}   #{leaveUserViewScopedController.selectedDemande.personne.prenom}"/>
+
+
+                            <p:outputLabel for="place" value="#{msg['place']}"/>
+                            <p:inputText id="place" value="#{leaveUserViewScopedController.selectedDemande.lieu}"/>
+
+
+
+                            <p:outputLabel for="request_time" value="#{msg['request_time']} :"/>
+                            <p:calendar id="request_time"
+                                        value="#{leaveUserViewScopedController.selectedDemande.keyDemande.dateDemande}"
+                                        showOn="button"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGroup>
+
+
+
+
+                <f:facet name="footer">
+                    <h:panelGroup style="display:block; text-align:right">
+                        <p:commandButton
+                                icon="fa fa-refresh"
+                                update=":updateDemandeForm:growlUpdateTool :leaveListForm"
+                                actionListener="#{leaveUserViewScopedController.update}"
+                        />
+
+                        <p:commandButton
+                                icon="ui-icon ui-icon-close"
+                                update=":updateDemandeForm:growlUpdateTool :leaveListForm"
+                                actionListener="#{leaveUserViewScopedController.delete}"
+                        />
+                    </h:panelGroup>
+
+                </f:facet>
+
+            </p:panel>
+        </p:dialog>
+        <!--update compte file -->
+    </h:form>
+
+
+</ui:composition>

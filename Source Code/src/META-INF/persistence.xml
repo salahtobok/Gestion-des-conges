@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="GCPersistenceUnit" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <jta-data-source>jdbc/gestionCongee</jta-data-source>
+
+        <class>Entities.Demande</class>
+        <class>Entities.Compte</class>
+        <class>Entities.Personne</class>
+        <class>Entities.Embeddable.Adresse</class>
+        <class>Entities.Embeddable.KeyDemande</class>
+
+        <properties>
+
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+        </properties>
+    </persistence-unit>
+</persistence>

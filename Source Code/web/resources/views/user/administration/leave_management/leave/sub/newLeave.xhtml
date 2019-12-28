@@ -1,0 +1,61 @@
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+
+    <h:form id="createForm">
+        <p:growl id="growlCreateTool" showDetail="true"/>
+
+        <p:dialog  header="#{msg['create_leave']}" widgetVar="leave_creator_dialog" modal="true"
+                  showEffect="fade" hideEffect="fade" resizable="false">
+
+                <p:panel id="compteLeaveDialog"  style="text-align:center;">
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel for="person" value="#{msg['person']}" />
+                        <p:selectOneMenu id="person" value="#{leaveAdministrationViewScopedController.selectedIdPerson}" lazy="true" style="width:125px">
+                            <f:selectItem itemLabel="#{msg['person']}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{leaveAdministrationViewScopedController.personnes}" var="person"
+                                           itemLabel="#{person.nom} #{person.prenom}" itemValue="#{person.idPersonne}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="place" value="#{msg['place']}"/>
+                        <p:inputText id="place" value="#{leaveAdministrationViewScopedController.newDemande.lieu}"/>
+
+
+                        <p:outputLabel for="request_time" value="#{msg['request_time']} :"/>
+                        <p:calendar id="request_time"
+                                    value="#{leaveAdministrationViewScopedController.newDemande.keyDemande.dateDemande}"
+                                    showOn="button"/>
+
+
+                        <p:outputLabel for="demande_state" value="#{msg['demande_state']} :"/>
+                        <p:selectOneMenu id="demande_state" value="#{leaveAdministrationViewScopedController.newDemande.etatDemande}">
+                            <f:selectItem itemLabel="Permettre" itemValue="Permettre"/>
+                            <f:selectItem itemLabel="Ne_pas_permettre" itemValue="Ne_pas_permettre"/>
+                        </p:selectOneMenu>
+
+
+                    </h:panelGrid>
+
+                    <f:facet name="footer">
+                        <h:panelGroup style="display:block; text-align:right">
+                            <p:commandButton
+                                    icon="fa fa-check"
+                                    update="growlCreateTool :leaveListForm"
+                                    actionListener="#{leaveAdministrationViewScopedController.create}"
+                            />
+                        </h:panelGroup>
+
+                    </f:facet>
+
+                </p:panel>
+
+        </p:dialog>
+
+
+    </h:form>
+</ui:composition>
